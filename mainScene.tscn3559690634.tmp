@@ -503,7 +503,6 @@ position = Vector2(136, 135)
 position = Vector2(136, 135)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Environment/EndOfLoop" unique_id=253048561]
-z_index = -1
 sprite_frames = SubResource("SpriteFrames_kpsh6")
 animation = &"Right"
 offset = Vector2(0, -5)
