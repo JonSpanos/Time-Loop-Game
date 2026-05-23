@@ -14,6 +14,7 @@ static var STORED_MOVEMENTS : Array[Vector2]
 
 func _restart_loop() -> void:
 	PLAYER.global_position = START_OF_LOOP.global_position
+	PLAYER.get_node("Sprite").play("Idle_Down")
 	STATS._new_loop()
 	
 

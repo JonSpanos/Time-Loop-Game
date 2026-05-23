@@ -21,14 +21,23 @@ func _physics_process(_delta: float) -> void:
 		_handle_movement_inputs()
 
 func _handle_movement_inputs() -> void:
-	if Input.is_action_just_pressed("move_up"):
-		_move(Vector2(0, -1))
-	elif Input.is_action_just_pressed("move_down"):
-		_move(Vector2(0, 1))
-	elif Input.is_action_just_pressed("move_left"):
-		_move(Vector2(-1, 0))
-	elif Input.is_action_just_pressed("move_right"):
-		_move(Vector2(1, 0))
+	var dir = Vector2.ZERO
+	if Input.is_action_pressed("move_up"):
+		dir = Vector2(0, -1)
+	elif Input.is_action_pressed("move_down"):
+		dir = Vector2(0, 1)
+	elif Input.is_action_pressed("move_left"):
+		dir = Vector2(-1, 0)
+	elif Input.is_action_pressed("move_right"):
+		dir = Vector2(1, 0)
+	
+	if dir == Vector2.ZERO or INPUT_LOCK: # Check for INPUT_LOCK as well incase an physics process gets called somehow before finishing
+		return
+	
+	# Await doesn't stop the next physics process call, so we need to lock the input before the call to ensure
+	INPUT_LOCK = true
+	await _move(dir)
+	INPUT_LOCK = false
 
 func _move(dir: Vector2, save : bool = true) -> Signal:
 	# Play Animation
